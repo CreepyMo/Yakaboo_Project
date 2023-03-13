@@ -62,7 +62,7 @@ public class MainPage {
     }
 
     public MainPage addProductToCart() {
-        productCard.should(appear, Duration.ofSeconds(5));
+        productCard.should(appear, Duration.ofSeconds(10));
         actions().scrollToElement(productCard).build().perform();
         actions().moveToElement(productCard).build().perform();
         addtoCartButton.should(appear, Duration.ofSeconds(5)).click();
