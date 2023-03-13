@@ -59,6 +59,7 @@ public class SmokeTests {
         $(By.xpath("//div[@class='checkout-product-card product-cart']")).should(appear, Duration.ofSeconds(5));
         int quantityAddedToCart = $$(By.xpath("//div[@class='checkout-product-card product-cart']")).size();
         Assert.assertEquals(quantityAddedToCart, 1);
+        Selenide.closeWebDriver();
     }
 
     @Test
@@ -67,6 +68,7 @@ public class SmokeTests {
         SelenideElement noResultsMessage = $(By.xpath(
                 "//p[contains(text(), 'За вашим запитом не знайдено жодних результатів')]"));
         noResultsMessage.isDisplayed();
+        Selenide.closeWebDriver();
     }
 
     @Test
@@ -82,6 +84,7 @@ public class SmokeTests {
             Assert.assertTrue(productValues.contains("Хіт") && productValues.contains("В наявності")
                     && productValues.contains("Стівен Кінг"));
         }
+        Selenide.closeWebDriver();
     }
 
     @Test
