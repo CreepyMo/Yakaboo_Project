@@ -56,7 +56,6 @@ public class MainPage {
         signUpEmailField.setValue(RandomCredsGenerator.getRandomEmail());
         signUpPasswordField.setValue("testPassword456");
         actions().moveToElement(agreeWithTermsCheckbox).click().build().perform();
-        Thread.sleep(3000);
         submitRegistrationButton.click();
         return page(MainPage.class);
     }
@@ -69,10 +68,10 @@ public class MainPage {
         return page(MainPage.class);
     }
 
-    public ProductListingPage proceedtoPLP() throws InterruptedException {
+    public ProductListingPage proceedToPLP() throws InterruptedException {
         paperBooksButton.click();
         fictionBooksButton.should(appear, Duration.ofSeconds(5)).click();
-        Thread.sleep(4000);
+   //     Thread.sleep(4000);
         return page(ProductListingPage.class);
     }
 

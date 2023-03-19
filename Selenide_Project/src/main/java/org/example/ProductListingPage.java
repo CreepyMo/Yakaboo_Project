@@ -1,8 +1,13 @@
 package org.example;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProductListingPage {
@@ -12,21 +17,20 @@ public class ProductListingPage {
     private SelenideElement sortingDropdown = $(By.xpath("//button[@class='sorting__btn']"));
     private SelenideElement sortingByPriceDescOption = $(By.xpath("//div[@class='sort-list']/button[contains(text(), 'Від найдорожчих')]"));
 
-    public ProductListingPage applyFilters() throws InterruptedException {
+    public void applyFilters() {
+        firstFilterCheckBox.should(visible, Duration.ofSeconds(10));
         actions().click(firstFilterCheckBox).build().perform();
-        Thread.sleep(2000);
+        firstFilterCheckBox.should(Condition.selected, Duration.ofSeconds(10));
         actions().click(secondFilterCheckBox).build().perform();
-        Thread.sleep(2000);
+        secondFilterCheckBox.should(Condition.selected, Duration.ofSeconds(10));
         actions().click(thirdFilterCheckBox).build().perform();
-        Thread.sleep(2000);
-        return page(ProductListingPage.class);
+        thirdFilterCheckBox.should(Condition.selected, Duration.ofSeconds(10));
     }
 
-    public ProductListingPage applySortingByPriceDesc() throws InterruptedException {
+    public void applySortingByPriceDesc() {
         applyFilters();
         sortingDropdown.click();
         sortingByPriceDescOption.click();
-        return page(ProductListingPage.class);
     }
 
 }

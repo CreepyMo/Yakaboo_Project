@@ -3,6 +3,7 @@ import org.example.MainPage;
 import org.example.ProductListingPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,9 +29,10 @@ public class SmokeTests {
     public void registerWithValidDataTest() throws InterruptedException, TimeoutException {
         MainPage mainPage = new MainPage();
         mainPage.registerNewUser();
-        Thread.sleep(3000);
         SelenideElement successMessage = $(By.xpath("//div[contains(text(), 'Аккаунт успішно зареєстровано!')]"));
         SelenideElement profileDiv = $(By.xpath("//div[@class='ui-btn-profile btn-profile']"));
+        successMessage.should(appear, Duration.ofSeconds(5));
+        profileDiv.should(appear, Duration.ofSeconds(5));
         Assert.assertTrue(successMessage.isDisplayed());
         Assert.assertTrue(profileDiv.isDisplayed());
         Selenide.closeWebDriver();
@@ -40,9 +42,10 @@ public class SmokeTests {
     public void loginWithValidCredsTest() throws TimeoutException, InterruptedException {
         MainPage mainPage = new MainPage();
         mainPage.loginWithValidCreds();
-        Thread.sleep(5000);
         SelenideElement successMessage = $(By.xpath("//div[contains(text(), 'Ви ввійшли в обліковий запис!')]"));
         SelenideElement profileDiv = $(By.xpath("//div[@class='ui-btn-profile btn-profile']"));
+        successMessage.should(appear, Duration.ofSeconds(5));
+        profileDiv.should(appear, Duration.ofSeconds(5));
         Assert.assertTrue(successMessage.isDisplayed());
         Assert.assertTrue(profileDiv.isDisplayed());
         Selenide.closeWebDriver();
@@ -64,17 +67,18 @@ public class SmokeTests {
 
     @Test
     public void searchByInvalidValueTest() throws TimeoutException, InterruptedException {
-        $(By.xpath("//input[@id='search']")).setValue("qwerty");
+        $(By.xpath("//input[@id='search']")).setValue("rrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         SelenideElement noResultsMessage = $(By.xpath(
                 "//p[contains(text(), 'За вашим запитом не знайдено жодних результатів')]"));
-        noResultsMessage.isDisplayed();
+        noResultsMessage.should(appear, Duration.ofSeconds(3));
+        Assert.assertTrue(noResultsMessage.isDisplayed());
         Selenide.closeWebDriver();
     }
 
     @Test
     public void applyFiltersTest() throws TimeoutException, InterruptedException {
         MainPage mainPage = new MainPage();
-        ProductListingPage plp = mainPage.proceedtoPLP();
+        ProductListingPage plp = mainPage.proceedToPLP();
         plp.applyFilters();
 
         List<SelenideElement> searchResultsList = $$(By.xpath("//div[@class='category-card view-category']"));
@@ -90,19 +94,20 @@ public class SmokeTests {
     @Test
     public void applySortingByPriceDescTest() throws TimeoutException, InterruptedException {
         MainPage mainPage = new MainPage();
-        ProductListingPage plp = mainPage.proceedtoPLP();
+        ProductListingPage plp = mainPage.proceedToPLP();
         plp.applySortingByPriceDesc();
-        Thread.sleep(5000);
-        List<Integer> priceList = new ArrayList<>();
+        Thread.sleep(1000);
+
         List<SelenideElement> priceAttributes = $$(By.xpath(
                 "//div[@class='ui-price-display category-card__price']//span[not(@class)]"));
 
-        for (SelenideElement e : priceAttributes) {
-            String priceStr = e.getAttribute("outerText");
-            assert priceStr != null;
-            int priceInt = Integer.parseInt(priceStr);
-            priceList.add(priceInt);
-        }
+       List<Integer> priceList = new ArrayList<>();
+
+       for (SelenideElement e : priceAttributes) {
+           String priceStr = e.getText();
+           int priceInt = Integer.parseInt(priceStr);
+           priceList.add(priceInt);
+       }
 
         for (int i = 1; i < priceList.size(); i++) {
             Assert.assertTrue(priceList.get(i - 1) >= priceList.get(i));
