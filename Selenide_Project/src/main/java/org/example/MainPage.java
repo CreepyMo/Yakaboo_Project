@@ -25,7 +25,7 @@ public class MainPage {
     private SelenideElement productCard = $(By.xpath("(//div[@class='product-carousel__slide' and @tabindex='-1'])[7]"));
     private SelenideElement addtoCartButton = $(By.xpath("(//div[@class='product-carousel__slide' and @tabindex='-1'])[7]//button[contains(text(), 'До кошика')]"));
     private SelenideElement paperBooksButton = $(By.xpath("//span[contains(text(), 'Друковані книги')]"));
-    private SelenideElement fictionBooksButton = $(By.xpath("//span[contains(text(), 'Художня література')]"));
+    private SelenideElement fictionBooksButton = $(By.xpath("//span[contains(text(), 'Художественная литература')]"));
     private SelenideElement registerSuccessMessage = $(By.xpath("//div[contains(text(), 'Аккаунт успішно зареєстровано!')]"));
     private SelenideElement profileDiv = $(By.xpath("//div[@class='ui-btn-profile btn-profile']"));
     private SelenideElement loginSuccessMessage = $(By.xpath("//div[contains(text(), 'Ви ввійшли в обліковий запис!')]"));
@@ -51,19 +51,19 @@ public class MainPage {
 
     public MainPage loginWithValidCreds() {
         clickLoginButton();
-        signInLoginField.setValue("testingemail@gmail.com");
-        signInPasswordField.setValue("testPassword123");
+        signInLoginField.setValue(Data.getEmailForLogin());
+        signInPasswordField.setValue(Data.getPasswordForLogin());
         submitSignInButton.click();
         return page(MainPage.class);
     }
 
     public MainPage registerNewUser() {
         clickSignUpButton();
-        firstNameField.should(appear, Duration.ofSeconds(5)).setValue("UserFirstName");
-        lastNameField.setValue("UserLastName");
+        firstNameField.should(appear, Duration.ofSeconds(5)).setValue(Data.getFirstNameForRegistration());
+        lastNameField.setValue(Data.getLastNameForRegistration());
         telNumberField.setValue(RandomCredsGenerator.getRandomTelNumber());
         signUpEmailField.setValue(RandomCredsGenerator.getRandomEmail());
-        signUpPasswordField.setValue("testPassword456");
+        signUpPasswordField.setValue(Data.getPasswordForRegistration());
         actions().moveToElement(agreeWithTermsCheckbox).click().build().perform();
         submitRegistrationButton.click();
         return page(MainPage.class);
