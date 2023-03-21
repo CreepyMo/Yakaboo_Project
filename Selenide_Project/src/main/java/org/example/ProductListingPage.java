@@ -3,8 +3,10 @@ package org.example;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.visible;
@@ -16,6 +18,9 @@ public class ProductListingPage {
     private SelenideElement thirdFilterCheckBox = $(By.xpath("//span[text()='Стівен Кінг']/preceding-sibling::input"));
     private SelenideElement sortingDropdown = $(By.xpath("//button[@class='sorting__btn']"));
     private SelenideElement sortingByPriceDescOption = $(By.xpath("//div[@class='sort-list']/button[contains(text(), 'Від найдорожчих')]"));
+    private List<SelenideElement> searchResultsList = $$(By.xpath("//div[@class='category-card view-category']"));
+    private  List<SelenideElement> priceAttributes = $$(By.xpath("//div[@class='ui-price-display category-card__price']//span[not(@class)]"));
+
 
     public void applyFilters() {
         firstFilterCheckBox.should(visible, Duration.ofSeconds(10));
@@ -31,6 +36,21 @@ public class ProductListingPage {
         applyFilters();
         sortingDropdown.click();
         sortingByPriceDescOption.click();
+    }
+    public List<SelenideElement> getSearchResultsList() {
+        return this.searchResultsList;
+    }
+    public List<SelenideElement> getPriceAttributes() {
+        return this.priceAttributes;
+    }
+
+    public void checkFiltersApply() {
+        for (SelenideElement e : searchResultsList) {
+            String productValues = e.getAttribute("outerText");
+            assert productValues != null;
+            Assert.assertTrue(productValues.contains("Хіт") && productValues.contains("В наявності")
+                    && productValues.contains("Стівен Кінг"));
+        }
     }
 
 }

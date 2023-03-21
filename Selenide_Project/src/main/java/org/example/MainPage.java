@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
@@ -25,7 +26,15 @@ public class MainPage {
     private SelenideElement addtoCartButton = $(By.xpath("(//div[@class='product-carousel__slide' and @tabindex='-1'])[7]//button[contains(text(), 'До кошика')]"));
     private SelenideElement paperBooksButton = $(By.xpath("//span[contains(text(), 'Друковані книги')]"));
     private SelenideElement fictionBooksButton = $(By.xpath("//span[contains(text(), 'Художня література')]"));
-
+    private SelenideElement registerSuccessMessage = $(By.xpath("//div[contains(text(), 'Аккаунт успішно зареєстровано!')]"));
+    private SelenideElement profileDiv = $(By.xpath("//div[@class='ui-btn-profile btn-profile']"));
+    private SelenideElement loginSuccessMessage = $(By.xpath("//div[contains(text(), 'Ви ввійшли в обліковий запис!')]"));
+    private SelenideElement addToCartSuccessMessage = $(By.xpath("//div[contains(text(), 'Товар додано до кошика!')]"));
+    private SelenideElement shoppingCartButton = $(By.xpath("//button[@class='ui-btn-shopping-cart']"));
+    private SelenideElement firstProductInCart = $(By.xpath("//div[@class='checkout-product-card product-cart']"));
+    private List<SelenideElement> productsInCart = $$(By.xpath("//div[@class='checkout-product-card product-cart']"));
+    private SelenideElement searchField = $(By.xpath("//input[@id='search']"));
+    private SelenideElement noResultsMessage =  $(By.xpath("//p[contains(text(), 'За вашим запитом не знайдено жодних результатів')]"));
 
     public MainPage clickLoginButton() {
         loginButton.click();
@@ -48,7 +57,7 @@ public class MainPage {
         return page(MainPage.class);
     }
 
-    public MainPage registerNewUser() throws InterruptedException {
+    public MainPage registerNewUser() {
         clickSignUpButton();
         firstNameField.should(appear, Duration.ofSeconds(5)).setValue("UserFirstName");
         lastNameField.setValue("UserLastName");
@@ -68,11 +77,38 @@ public class MainPage {
         return page(MainPage.class);
     }
 
-    public ProductListingPage proceedToPLP() throws InterruptedException {
+    public ProductListingPage proceedToPLP() {
         paperBooksButton.click();
         fictionBooksButton.should(appear, Duration.ofSeconds(5)).click();
-   //     Thread.sleep(4000);
         return page(ProductListingPage.class);
+    }
+
+    public SelenideElement getRegisterSuccessMessage() {
+        return this.registerSuccessMessage;
+    }
+    public SelenideElement getProfileDiv() {
+        return this.profileDiv;
+    }
+    public SelenideElement getLoginSuccessMessage() {
+        return this.loginSuccessMessage;
+    }
+    public SelenideElement getAddToCartSuccessMessage() {
+        return this.addToCartSuccessMessage;
+    }
+    public SelenideElement getShoppingCartButton() {
+        return this.shoppingCartButton;
+    }
+    public SelenideElement getFirstProductInCart() {
+        return this.firstProductInCart;
+    }
+    public List<SelenideElement> getProductsInCart() {
+        return this.productsInCart;
+    }
+    public SelenideElement getSearchField() {
+        return this.searchField;
+    }
+    public SelenideElement getNoResultsMessage() {
+        return this.noResultsMessage;
     }
 
 }
