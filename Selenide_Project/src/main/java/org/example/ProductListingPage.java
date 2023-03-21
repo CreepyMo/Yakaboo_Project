@@ -37,9 +37,7 @@ public class ProductListingPage {
         sortingDropdown.click();
         sortingByPriceDescOption.click();
     }
-    public List<SelenideElement> getSearchResultsList() {
-        return this.searchResultsList;
-    }
+
     public List<SelenideElement> getPriceAttributes() {
         return this.priceAttributes;
     }
