@@ -1,6 +1,6 @@
 package restassured.data;
 
-import org.example.RandomCredsGenerator;
+import selenide.data.RandomCredsGenerator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

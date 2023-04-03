@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="YakabooSmokeTests">
                 <classes>
-                    <class name="SmokeTests"/>
+                    <class name="selenide.tests.SmokeTests"></class>
                 </classes>
     </test>
 </suite>

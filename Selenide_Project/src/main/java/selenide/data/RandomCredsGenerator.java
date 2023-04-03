@@ -1,4 +1,4 @@
-package org.example;
+package selenide.data;
 
 import java.util.Random;
 

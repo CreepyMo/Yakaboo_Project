@@ -1,5 +1,6 @@
-package org.example;
+package selenide.data;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
@@ -25,7 +26,7 @@ public class MainPage {
     private SelenideElement productCard = $(By.xpath("(//div[@class='product-carousel__slide' and @tabindex='-1'])[7]"));
     private SelenideElement addtoCartButton = $(By.xpath("(//div[@class='product-carousel__slide' and @tabindex='-1'])[7]//button[contains(text(), 'До кошика')]"));
     private SelenideElement paperBooksButton = $(By.xpath("//span[contains(text(), 'Друковані книги')]"));
-    private SelenideElement fictionBooksButton = $(By.xpath("//span[contains(text(), 'Художественная литература')]"));
+    private SelenideElement fictionBooksButton = $(By.xpath("//span[contains(text(), 'Художня література')]"));
     private SelenideElement registerSuccessMessage = $(By.xpath("//div[contains(text(), 'Аккаунт успішно зареєстровано!')]"));
     private SelenideElement profileDiv = $(By.xpath("//div[@class='ui-btn-profile btn-profile']"));
     private SelenideElement loginSuccessMessage = $(By.xpath("//div[contains(text(), 'Ви ввійшли в обліковий запис!')]"));
@@ -80,7 +81,7 @@ public class MainPage {
     public ProductListingPage proceedToPLP() {
         paperBooksButton.click();
         fictionBooksButton.should(appear, Duration.ofSeconds(5)).click();
-        return page(ProductListingPage.class);
+        return Selenide.page(ProductListingPage.class);
     }
 
     public SelenideElement getRegisterSuccessMessage() {

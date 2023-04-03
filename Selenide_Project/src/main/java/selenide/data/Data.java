@@ -1,4 +1,4 @@
-package org.example;
+package selenide.data;
 
 public class Data {
     public static String getEmailForLogin() {

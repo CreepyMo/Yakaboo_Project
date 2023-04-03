@@ -1,7 +1,9 @@
+package selenide.tests;
+
 import com.codeborne.selenide.*;
-import org.example.MainPage;
-import org.example.ProductListingPage;
-import org.example.RandomCredsGenerator;
+import selenide.data.MainPage;
+import selenide.data.ProductListingPage;
+import selenide.data.RandomCredsGenerator;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;

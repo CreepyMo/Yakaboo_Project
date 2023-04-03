@@ -1,4 +1,4 @@
-package org.example;
+package selenide.data;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
