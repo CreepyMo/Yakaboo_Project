@@ -64,6 +64,7 @@ public class SmokeTests extends BaseTest {
         plp.applyFilters();
         plp.checkFiltersApply();
         Selenide.closeWebDriver();
+        //test
     }
 
     @Test
