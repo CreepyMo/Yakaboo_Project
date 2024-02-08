@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class DataForApiTests {
     private String baseURI = "https://petstore.swagger.io/v2";
     private String username = "creepymonster";
-    private String password = "24687531Qwert";
+    private String password = "24687531Qwer";
 
     public String getBaseURI() {
         return this.baseURI;
