@@ -1,6 +1,5 @@
 package restassured.tests;
 
-import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import restassured.data.DataForApiTests;
 
